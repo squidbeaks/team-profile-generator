@@ -3,19 +3,88 @@
 const inquirer = require('inquirer');
 //const Employee = require('../lib/Employee');
 const Manager = require('./lib/Manager.js');
-// const Engineer = require('../lib/Engineer');
+const Engineer = require('./lib/Engineer');
 // const Intern = require('../lib/Intern');
 
 // Array of questions for user input
-const questions = [
+const managerQuestions = [
     "What is your team's manager name?",
     "What is your team's manager employee ID?",
     "What is your team's manager email address?",
     "What is your team's manager office number?"
 ];
 
+const engineerQuestions = [
+    "What is the engineer's name?",
+    "What is the engineer's employee ID?",
+    "What is the engineer's email address?",
+    "What is the engineer's GitHub username?"
+];
+
 const addNewEngineer = () => {
     console.log('You would like to add a new engineer to your team!');
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: engineerQuestions[0],
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the team manager's name!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: engineerQuestions[1],
+            validate: idInput => {
+                if (idInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the manager's employee id!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: engineerQuestions[2],
+            validate: emailInput => {
+                if (emailInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the manager's email address!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: engineerQuestions[3],
+            validate: githubInput => {
+                if (githubInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the engineer github username!');
+                    return false;
+                }
+            }
+        }
+    ])
+
+    .then(({ name, id, email, github }) => {
+        this.engineer = new Engineer(name, id, email, github, role = 'Engineer');
+
+        console.log(this.engineer);
+        // prompt user to select next option: engineer or intern
+        addNewTeamMember();
+    });
 };
 
 const addNewIntern = () => {
@@ -49,12 +118,11 @@ const addNewTeamMember = () => {
 
 // Prompt user with questions
 const promptUser = () => {
-
     return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
-            message: questions[0],
+            message: managerQuestions[0],
             validate: nameInput => {
                 if (nameInput) {
                     return true;
@@ -67,7 +135,7 @@ const promptUser = () => {
         {
             type: 'input',
             name: 'id',
-            message: questions[1],
+            message: managerQuestions[1],
             validate: idInput => {
                 if (idInput) {
                     return true;
@@ -80,7 +148,7 @@ const promptUser = () => {
         {
             type: 'input',
             name: 'email',
-            message: questions[2],
+            message: managerQuestions[2],
             validate: emailInput => {
                 if (emailInput) {
                     return true;
@@ -93,7 +161,7 @@ const promptUser = () => {
         {
             type: 'input',
             name: 'officeNumber',
-            message: questions[3],
+            message: managerQuestions[3],
             validate: officeInput => {
                 if (officeInput) {
                     return true;
