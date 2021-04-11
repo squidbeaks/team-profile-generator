@@ -11,19 +11,44 @@ const questions = [
     "What is your team's manager name?",
     "What is your team's manager employee ID?",
     "What is your team's manager email address?",
-    "What is your team's manager office number?",
-    'Provide installation instructions for your application.',
-    'Provide instruction on how to use your application.',
-    'Choose what license is associated with your project.',
-    'Provide instruction on how individuals can contribute to your application.',
-    'Provide instructions on how to run tests for your application.',
+    "What is your team's manager office number?"
 ];
 
+const addNewEngineer = () => {
+    console.log('You would like to add a new engineer to your team!');
+};
+
+const addNewIntern = () => {
+    console.log('You would like to add a new intern to your team!');
+};
+
+const generateHTML = () => {
+    console.log('You are done building out your team!');
+};
+
+const addNewTeamMember = () => {
+    return inquirer.prompt([{
+        type: 'number',
+        name: 'newTeamMember',
+        message: "Would you like to add an ENGINEER, INTERN or FINISH building your team? Select 1 for ENGINEER, 2 for INTERN, or 3 if you're finished."
+        //validate
+    }])
+    .then(answers => {
+        console.log(answers);
+        if (answers.newTeamMember === 1) {
+            addNewEngineer();
+        }
+        if (answers.newTeamMember === 2) {
+            addNewIntern();
+        }
+        if (answers.newTeamMember === 3) {
+            generateHTML();
+        }
+    });
+};
+
 // Prompt user with questions
-const promptUser = teamData => {
-    if (!teamData) {
-        teamData = [];
-    }
+const promptUser = () => {
 
     return inquirer.prompt([
         {
@@ -79,33 +104,17 @@ const promptUser = teamData => {
             }
         }
     ])
-    // .then(answers => {
-    //     teamData.push(answers);
-    //     console.log(teamData);
-    //     return teamData;
 
-            // destructure name from the prompt object
     .then(({ name, id, email, officeNumber }) => {
         this.manager = new Manager(name, id, email, officeNumber, role = 'Manager');
 
-        // test the object creation
         console.log(this.manager);
         // prompt user to select next option: engineer or intern
+        addNewTeamMember();
     });
+};
 
-promptUser()
-    // .then(
-        // prompt user for options
-    // )
-//     .then(readMeData => {
-//         const pageContent = generateMD(readMeData);
-
-//     fs.writeFile('./dist/README.md', pageContent, err => {
-//         if (err) throw err;
-
-//      console.log('README complete! Check out the README.md to see the output!');
-//     });
-// });
+promptUser();
 
 // GIVEN a command-line application that accepts user input
 // WHEN I am prompted for my team members and their information
