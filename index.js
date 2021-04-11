@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 //const Employee = require('../lib/Employee');
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer');
-// const Intern = require('../lib/Intern');
+const Intern = require('./lib/Intern');
 
 // Array of questions for user input
 const managerQuestions = [
@@ -21,6 +21,79 @@ const engineerQuestions = [
     "What is the engineer's GitHub username?"
 ];
 
+const internQuestions = [
+    "What is the intern's name?",
+    "What is the intern's employee ID?",
+    "What is the intern's email address?",
+    "What is the intern's school?"
+];
+
+const addNewIntern = () => {
+    console.log('You would like to add a new intern to your team!');
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: internQuestions[0],
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the team intern's name!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: internQuestions[1],
+            validate: idInput => {
+                if (idInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the intern's employee id!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: internQuestions[2],
+            validate: emailInput => {
+                if (emailInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the intern's email address!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: internQuestions[3],
+            validate: schoolInput => {
+                if (schoolInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the intern's school!");
+                    return false;
+                }
+            }
+        }
+    ])
+
+    .then(({ name, id, email, school }) => {
+        this.intern = new Intern(name, id, email, school, role = 'Intern');
+
+        console.log(this.intern);
+        // prompt user to select next option: engineer or intern
+        addNewTeamMember();
+    });
+};
+
 const addNewEngineer = () => {
     console.log('You would like to add a new engineer to your team!');
     return inquirer.prompt([
@@ -32,7 +105,7 @@ const addNewEngineer = () => {
                 if (nameInput) {
                     return true;
                 } else {
-                    console.log("Please enter the team manager's name!");
+                    console.log("Please enter the team engineer's name!");
                     return false;
                 }
             }
@@ -45,7 +118,7 @@ const addNewEngineer = () => {
                 if (idInput) {
                     return true;
                 } else {
-                    console.log("Please enter the manager's employee id!");
+                    console.log("Please enter the engineer's employee id!");
                     return false;
                 }
             }
@@ -58,7 +131,7 @@ const addNewEngineer = () => {
                 if (emailInput) {
                     return true;
                 } else {
-                    console.log("Please enter the manager's email address!");
+                    console.log("Please enter the engineer's email address!");
                     return false;
                 }
             }
@@ -85,10 +158,6 @@ const addNewEngineer = () => {
         // prompt user to select next option: engineer or intern
         addNewTeamMember();
     });
-};
-
-const addNewIntern = () => {
-    console.log('You would like to add a new intern to your team!');
 };
 
 const generateHTML = () => {
