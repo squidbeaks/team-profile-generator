@@ -46,9 +46,9 @@ test('Get engineer github', () => {
         'James',
         1,
         'james@test.com',
-        'https://github.com/james',
+        'james',
         'Engineer'
     );
 
-    expect(engineer.getGithub('james')).toBe('https://github.com/james');
+    expect(engineer.getGithub('james')).toHaveProperty('github');
 });
