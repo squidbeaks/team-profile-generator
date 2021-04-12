@@ -16,6 +16,8 @@
 
   ## Usage
   To use this application, run `node index.js` and you will be prompted with questions about your team's information. An HTML file will be generated in the dist, which you can open and view in your browser of choice.
+  
+  Here is a video](https://drive.google.com/file/d/1b940dgXSNyUbhbSVcRv44OoIWXns_BNA/view) of the application in action.
 
   ## Contributing
   You can contribute issues or Pull Requests here: https://github.com/squidbeaks/team-profile-generator
