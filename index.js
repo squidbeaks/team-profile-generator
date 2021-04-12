@@ -3,7 +3,8 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const writeFile = require('./utils/generate-site');
+//const writeFile = require('./utils/generate-site');
+const fs = require('fs');
 const generatePage = require('./src/page-template');
 
 // Array of questions for user input
@@ -28,7 +29,7 @@ const internQuestions = [
     "What is the intern's school?"
 ];
 
-const addNewIntern = () => {
+const addIntern = () => {
     console.log('You would like to add a new intern to your team!');
     return inquirer.prompt([
         {
@@ -90,13 +91,19 @@ const addNewIntern = () => {
 
         console.log(this.intern);
         // prompt user to select next option: engineer or intern
-        addNewTeamMember();
+        addTeamMember();
     });
 };
 
-const addNewEngineer = () => {
+const addEngineer = () => {
     console.log('You would like to add a new engineer to your team!');
-    return inquirer.prompt([
+
+    // if (!teamData.engineers) {
+    //     teamData.engineers = [];
+    // }
+
+    return inquirer
+        .prompt([
         {
             type: 'input',
             name: 'name',
@@ -151,36 +158,61 @@ const addNewEngineer = () => {
         }
     ])
     .then(({ name, id, email, github }) => {
+        // console.log(teamData);
+        // if (engineerData.confirmAddTeamMember) {
+        //     return addTeamMember(teamData);
+        // } else {
+        //     return teamData;
+        // }
+      //  console.log(engineerData);
         this.engineer = new Engineer(name, id, email, github, role = 'Engineer');
 
-        console.log(this.engineer);
+       // teamData.push(this.engineer);
+
+       console.log(this.engineer);
+       //console.log(teamData);
+
         // prompt user to select next option: engineer or intern
-        addNewTeamMember();
+        addTeamMember();
     });
 };
 
-const addNewTeamMember = () => {
+const addTeamMember = () => {
     return inquirer.prompt([{
-        type: 'number',
+        type: 'list',
         name: 'newTeamMember',
-        message: "Would you like to add an ENGINEER, INTERN or FINISH building your team? Select 1 for ENGINEER, 2 for INTERN, or 3 if you're finished."
+        message: "What kind of employee would you like to add to your team?",
+        choices: ["Engineer", "Intern", "I'm all done building out my team"]
     }])
     .then(answers => {
         console.log(answers);
-        if (answers.newTeamMember === 1) {
-            addNewEngineer();
+        if (answers.newTeamMember === "Engineer") {
+            addEngineer();
         }
-        if (answers.newTeamMember === 2) {
-            addNewIntern();
-        }
-        if (answers.newTeamMember === 3) {
+        else if (answers.newTeamMember === "Intern") {
+            addIntern();
+        } else {
             return;
         }
+    })
+    .then(teamData => {
+        const pageContent = generatePage(teamData);
+
+        fs.writeFile('./dist/index.html', pageContent, err => {
+            if (err) throw err;
+
+            console.log('Team Page complete! Check out the HTML.index to see the output!');
+        });
     });
 };
 
 // Prompt user with questions
-const promptUser = () => {
+const addManager = teamData => {
+
+    if (!teamData) {
+        teamData = [];
+    }
+
     return inquirer.prompt([
         {
             type: 'input',
@@ -240,21 +272,32 @@ const promptUser = () => {
         this.manager = new Manager(name, id, email, officeNumber, role = 'Manager');
 
         console.log(this.manager);
+        teamData.push(this.manager);
+        console.log(teamData);
         // prompt user to select next option: engineer or intern
-        addNewTeamMember();
+        addTeamMember();
     });
 };
 
-promptUser()
-    .then(teamInfo => {
-        return generatePage(teamInfo);
-    })
-    .then(pageHTML => {
-        return writeFile(pageHTML);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+const init = () => {
+    addManager();
+}
+
+init();
+
+// Prompt user for manager questions
+// Manager object responses are stored to team data array
+// Prompt user for if they want to add an engineer, intern or are done
+// if they want to add an engineer
+// they are prompted with the engineer questions
+// Engineer object responses are stored to team data array
+// Prompt user for if they want to add an engineer, intern or are done
+// if they want to add an intern
+// they are prompted with the intern questions
+// Intern object responses are stored to team data array
+// Prompt user for if they want to add an engineer, intern or are done
+// if they are done
+// then an HTML file is generated with all of their team data objects displayed
 
 
 // GIVEN a command-line application that accepts user input

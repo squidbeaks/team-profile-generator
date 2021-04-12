@@ -1,26 +1,65 @@
-
-    <!DOCTYPE html>
-    <html lang='en'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width. initial-scale=1.0'>
-        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-        <title>Portfolio Demo</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-    <head>
-
-    <body>
-        <header>
-            <div class="container flex-row justify-space-between align-center py-3"> 
-                <h1 class="page-title text-secondary bg-dark py-2 px-3">My Team</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Team Profile Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+    <header>
+        <h1> My Team </h1>
+    </header>
+    <main>
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Leah</span>
+                        <p>Manager</p>
+                    </div>
+                    <div class="card-action">
+                        <ul>
+                            <li>Employee ID: 1</li>
+                            <li><a href = "mailto: leah@test.com">leah@test.com</a></li>
+                            <li>Office number: 123</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </header>
-        <main class="container my-5">
-        </main>
-        <footer class="container text-center py-3">
-        </footer>
-    </body>
-    </html>
-    
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Tom</span>
+                        <p>Engineer</p>
+                    </div>
+                    <div class="card-action">
+                        <ul>
+                            <li>Employee ID: 2</li>
+                            <li><a href = "mailto: tom@test.com">tom@test.com</a></li>
+                            <li>Github: <a href="https://github.com/squidbeaks" target="_blank">squidbeaks</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Steven</span>
+                        <p>Intern</p>
+                    </div>
+                    <div class="card-action">
+                        <ul>
+                            <li>Employee ID: 3</li>
+                            <li><a href = "mailto: steven@test.com">steven@test.com</a></li>
+                            <li>School: UCSB</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+  </body>
+  </html>
