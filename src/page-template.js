@@ -1,67 +1,42 @@
-const generateManager = () => {
-    return `
-<div class="row">
-    <div class="col s12 m6">
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-                <span class="card-title">Manager Name</span>
-                <p>Role</p>
-            </div>
-            <div class="card-action">
-                <ul>
-                    <li>ID: ${idInput}</li>
-                    <li> Email: ${emailInput}</li>
-                    <li>Office number: ${manager.officeNumInput}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>`
+const generateEmployee = employee => {
+    if (employee.getRole() === 'Engineer') {
+        return `<div class="col s12 m6">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">${employee.name}</span>
+                            <p>Engineer</p>
+                        </div>
+                        <div class="card-action">
+                            <ul>
+                                <li>Employee ID: ${employee.id}</li>
+                                <li><a href = "mailto: ${employee.email}">${employee.email}</a></li>
+                                <li>Github: ${employee.github}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>`
+    };
+
+    if (employee.getRole() === 'Intern') {
+        return `<div class="col s12 m6">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">${employee.name}</span>
+                            <p>Intern</p>
+                        </div>
+                        <div class="card-action">
+                            <ul>
+                                <li>Employee ID: ${employee.id}</li>
+                                <li><a href = "mailto: ${employee.email}">${employee.email}</a></li>
+                                <li>School: ${employee.school}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>`
+    };
 };
 
-const generateEngineer = () => {
-    return `
-    <div class="row">
-            <div class="col s12 m6">
-              <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                  <span class="card-title">Engineer Name</span>
-                  <p>Role</p>
-                </div>
-                <div class="card-action">
-                    <ul>
-                        <li>ID: ${idInput}</li>
-                        <li> Email: ${emailInput}</li>
-                        <li>Github Username: ${engineer.githubUserInput}</li>
-                    </ul>
-                </div>
-              </div>
-            </div>
-          </div>`
-};
-
-const generateIntern = () => {
-    return `
-    <div class="row">
-            <div class="col s12 m6">
-              <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                  <span class="card-title">Intern Name</span>
-                  <p>Role</p>
-                </div>
-                <div class="card-action">
-                    <ul>
-                        <li>ID: ${idInput}</li>
-                        <li> Email: ${emailInput}</li>
-                        <li>School: ${intern.schoolInput}</li>
-                    </ul>
-                </div>
-              </div>
-            </div>
-          </div>`
-};
-
-const generatePage = () => {
+const generatePage = manager => {
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,48 +56,19 @@ const generatePage = () => {
             <div class="col s12 m6">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
-                        <span class="card-title">Leah</span>
+                        <span class="card-title">${manager.name}</span>
                         <p>Manager</p>
                     </div>
                     <div class="card-action">
                         <ul>
-                            <li>Employee ID: 1</li>
-                            <li><a href = "mailto: leah@test.com">leah@test.com</a></li>
-                            <li>Office number: 123</li>
+                            <li>Employee ID: ${manager.id}</li>
+                            <li><a href = "mailto: ${manager.email}">${manager.email}</a></li>
+                            <li>Office number: ${manager.officeNumber}</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col s12 m6">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Tom</span>
-                        <p>Engineer</p>
-                    </div>
-                    <div class="card-action">
-                        <ul>
-                            <li>Employee ID: 2</li>
-                            <li><a href = "mailto: tom@test.com">tom@test.com</a></li>
-                            <li>Github: <a href="https://github.com/squidbeaks" target="_blank">squidbeaks</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m6">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Steven</span>
-                        <p>Intern</p>
-                    </div>
-                    <div class="card-action">
-                        <ul>
-                            <li>Employee ID: 3</li>
-                            <li><a href = "mailto: steven@test.com">steven@test.com</a></li>
-                            <li>School: UCSB</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            ${generateEmployee(manager.team[0])}
         </div>
     </main>
   </body>
