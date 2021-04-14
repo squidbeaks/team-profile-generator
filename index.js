@@ -254,7 +254,7 @@ const writeFile = manager => {
     fs.writeFile('./dist/index.html', pageContent, err => {
         if (err) throw err;
 
-        console.log('Team Page complete! Check out the HTML.index to see the output!');
+        console.log('Team Page complete! Check out the index.html to see the output!');
     });
 }
 
